@@ -49,9 +49,6 @@ class sc_supervisor (
   }
 
 
-  file { $supervisord::config_include:
-    ensure => directory,
-  }
   file { $sc_supervisor::init_path:
     ensure => directory,
   }
