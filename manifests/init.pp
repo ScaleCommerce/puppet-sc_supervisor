@@ -20,12 +20,17 @@ class sc_supervisor (
   $init_path        = '/etc/supervisor.init',
 ) {
 
-  Package['python-pip']-> Class['supervisord']
+  Package['python-pip']-> Class['supervisord']->File['/etc/supervisord.conf']
 
   include supervisord
 
   file { '/etc/init.d/supervisor':
     ensure => absent,
+  }
+
+  file { '/etc/supervisor/supervisord.conf' :
+    ensure => link,
+    target => '/etc/supervisord.conf',
   }
 
 
