@@ -29,13 +29,15 @@ class sc_supervisor (
   $source_dir = '/etc/supervisor/conf.d'
   $target_dir = '/etc/supervisor.d'
 
-  file { $target_dir :
+  file { 'new_supervisor_conf_dir' :
+    path => $target_dir,
     ensure => 'directory',
     source => "file://${source_dir}",
     recurse => true,
     before => File[$source_dir],
   }->
-  file { $source_dir :
+  file { 'old_supervisor_conf_dir' :
+    path => $source_dir,
     ensure => 'absent',
     purge => true,
     recurse => true,
