@@ -26,10 +26,30 @@ class sc_supervisor (
     ensure => absent,
   }
 
+  $source_dir = '/etc/supervisor/conf.d'
+  $target_dir = '/etc/supervisor.d'
 
-#  file { $supervisord::config_include:
-#    ensure => directory,
-#  }
+  file { $target_dir :
+    ensure => 'directory',
+    source => "file://${source_dir}",
+    recurse => true,
+    before => File[$source_dir],
+  }->
+  file { $source_dir :
+    ensure => 'absent',
+    purge => true,
+    recurse => true,
+    force => true,
+  }->
+  file { $source_dir:
+    ensure => link,
+    target => $target_dir,
+  }
+
+
+  file { $supervisord::config_include:
+    ensure => directory,
+  }
   file { $sc_supervisor::init_path:
     ensure => directory,
   }
