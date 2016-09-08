@@ -22,4 +22,30 @@ class sc_supervisor (
 
   include supervisord
 
+  file { '/etc/init.d/supervisor':
+    ensure => absent,
+  }
+
+
+  file { $supervisord::config_include:
+    ensure => directory,
+  }
+  file { $sc_supervisor::init_path:
+    ensure => directory,
+  }
+  file { "${sc_supervisor::init_path}/supervisor-init-wrapper":
+    content => template("${module_name}/supervisor-init-wrapper.erb"),
+    mode => '700',
+  }
+
+  package { 'python-pip':
+    ensure => installed,
+  }->
+
+  package { 'superlance':
+    ensure   => installed,
+    provider => 'pip',
+    require  => Package['supervisor'],
+  }
+
 }
