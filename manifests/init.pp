@@ -50,7 +50,7 @@ class sc_supervisor (
 
   package { 'python-pip':
     ensure => installed,
-  }->
+  }
 
   #package { 'superlance':
   #  ensure   => installed,
