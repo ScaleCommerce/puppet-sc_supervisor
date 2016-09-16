@@ -28,6 +28,10 @@ class sc_supervisor (
     ensure => absent,
   }
 
+  file { '/etc/supervisor' :
+    ensure => directory,
+  }->
+
   file { '/etc/supervisor/supervisord.conf' :
     ensure => link,
     target => '/etc/supervisord.conf',
