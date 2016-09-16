@@ -28,15 +28,9 @@ class sc_supervisor (
     ensure => absent,
   }
 
-  exec {"check_presence":
-    command => '/bin/true',
-    onlyif => '/usr/bin/test -e /etc/supervisor',
-  }
-
   file { '/etc/supervisor/supervisord.conf' :
     ensure => link,
     target => '/etc/supervisord.conf',
-    require => Exec["check_presence"],
   }
 
 
