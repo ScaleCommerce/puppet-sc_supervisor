@@ -38,8 +38,10 @@ class sc_supervisor (
   }
 
 
-  file { $sc_supervisor::init_path:
-    ensure => directory,
+  if !defined(File[$sc_supervisor::init_path]) {
+    file { $sc_supervisor::init_path:
+      ensure => directory,
+    }
   }
   file { "${sc_supervisor::init_path}/supervisor-init-wrapper":
     content => template("${module_name}/supervisor-init-wrapper.erb"),
