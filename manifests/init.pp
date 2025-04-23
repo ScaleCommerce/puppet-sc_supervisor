@@ -53,10 +53,10 @@ class sc_supervisor (
   #   ensure => installed,
   # }
 
-  #package { 'superlance':
-  #  ensure   => installed,
-  #  provider => 'pip',
-  # require  => Package['supervisor'],
-  #}
+  # package { 'superlance':
+  #   ensure   => installed,
+  #   provider => 'pip',
+  #  require  => Package['supervisor'],
+  # }
 
 }
