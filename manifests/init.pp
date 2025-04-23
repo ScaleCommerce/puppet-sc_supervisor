@@ -20,7 +20,8 @@ class sc_supervisor (
   $init_path        = '/etc/supervisor.init',
 ) {
 
-  Package['python-pip']-> Class['supervisord']->File['/etc/supervisor/supervisord.conf']
+  # Package['python-pip']-> Class['supervisord']->File['/etc/supervisor/supervisord.conf']
+  Class['supervisord']->File['/etc/supervisor/supervisord.conf']
 
   include supervisord
 
@@ -43,14 +44,14 @@ class sc_supervisor (
       ensure => directory,
     }
   }
-  file { "${sc_supervisor::init_path}/supervisor-init-wrapper":
-    content => template("${module_name}/supervisor-init-wrapper.erb"),
-    mode => '700',
-  }
+  # file { "${sc_supervisor::init_path}/supervisor-init-wrapper":
+  #   content => template("${module_name}/supervisor-init-wrapper.erb"),
+  #   mode => '700',
+  # }
 
-  package { 'python-pip':
-    ensure => installed,
-  }
+  # package { 'python-pip':
+  #   ensure => installed,
+  # }
 
   #package { 'superlance':
   #  ensure   => installed,
