@@ -44,10 +44,10 @@ class sc_supervisor (
       ensure => directory,
     }
   }
-  # file { "${sc_supervisor::init_path}/supervisor-init-wrapper":
-  #   content => template("${module_name}/supervisor-init-wrapper.erb"),
-  #   mode => '700',
-  # }
+  file { "${sc_supervisor::init_path}/supervisor-init-wrapper":
+    content => template("${module_name}/supervisor-init-wrapper.erb"),
+    mode => '700',
+  }
 
   # package { 'python-pip':
   #   ensure => installed,
